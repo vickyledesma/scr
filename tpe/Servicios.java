@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import tpe.utils.CSVReader;
 
@@ -24,14 +25,28 @@ public class Servicios {
 		this.procesadores = reader.readProcessors(pathProcesadores);
 		this.tareas = reader.readTasks(pathTareas);
 	}
+	public HashMap<String, Tarea> getTareas() {
+		return tareas;
+	}
+	public void setTareas(HashMap<String, Tarea> tareas) {
+		this.tareas = tareas;
+	}
+	public HashMap<String, Procesador> getProcesadores() {
+		return procesadores;
+	}
+	public void setProcesadores(HashMap<String, Procesador> procesadores) {
+		this.procesadores = procesadores;
+	}
+
+
 	/*
      * Expresar la complejidad temporal del servicio 1.
      */
 	public Tarea servicio1(String ID) { // complejidad de O(1)
 		return tareas.get(ID);
-
 	}
     
+
     /*
      * Expresar la complejidad temporal del servicio 2.
      */
@@ -65,4 +80,7 @@ public class Servicios {
 		return resultado;
 	} 
 
+    public void servicioBackTraking(int tiempomaximo) {
+       AsignadorTareas.asignarTareas(tiempomaximo,tareas, procesadores);
+    }
 }
