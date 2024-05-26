@@ -68,18 +68,28 @@ public class Procesador {
         return tiempo_ejecucion;
     }
 
-    public boolean cumpleRestricciones(Procesador procesador, Tarea tarea, int tiempo){
+    public boolean cumpleRestricciones(Procesador procesador, Tarea tarea, int tiempoX) {
         int criticasAsignadas = 0;
         int tiempomaximo = procesador.tiempo_ejecucion(procesador);
         Iterator<Tarea> iterator = procesador.getTareas_asignadas().iterator();
+        while (iterator.hasNext()) {
             Tarea tareaAsignada = iterator.next();
             if (tareaAsignada.isEs_critica()) {
                 criticasAsignadas++;
-                if()
             }
-            return esta_refrigerado;
         }
+        if (tarea.isEs_critica()) {
+            criticasAsignadas++;
+        }
+        if (criticasAsignadas < 2 && procesador.isEsta_refrigerado() && tiempomaximo < tiempoX) {
+            return true;
+        }
+        return false;
     }
+    public void asignarTarea(Tarea tarea){
+        tareas_asignadas.add(tarea);
 
+    }
+}
 
 

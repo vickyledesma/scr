@@ -20,6 +20,7 @@ public class AsignadorTareas {
                 if (tiempoActual < mejorTiempoFinal) {
                     mejorTiempoFinal = tiempoActual;
                     mejorAsignacion.clear();
+                    mejorAsignacion.addAll(mejorAsignacion);
                 }
             }
             Iterator<Tarea> tareaIterator = tareasSinAsignar.iterator();
@@ -30,10 +31,8 @@ public class AsignadorTareas {
                     String procesadorId = procesadorIterator.next();
                     Procesador procesador = procesadores.get(procesadorId);
                     if (procesador.cumpleRestricciones(procesador, tarea, tiempoX)) {
-                       //logica de asignar tarea
-                       //sacar la tarea de la lista de tareas x asignar
-                       // creo q nada mas 
-
+                        procesador.asignarTarea(tarea);
+                        tareasSinAsignar.remove(tarea);
                     }
                 }
             }

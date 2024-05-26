@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import tpe.Procesador;
 import tpe.Tarea;
@@ -42,21 +43,19 @@ public class CSVReader {
 	}
 	
 	public HashMap<String, Procesador> readProcessors(String processorPath) {
-		
 		HashMap<String, Procesador> procesadores = new HashMap<String, Procesador>();
-		// Obtengo una lista con las lineas del archivo
-		// lines.get(0) tiene la primer linea del archivo
-		// lines.get(1) tiene la segunda linea del archivo... y así
 		ArrayList<String[]> lines = this.readContent(processorPath);
 		
 		for (String[] line: lines) {
-			// Cada linea es un arreglo de Strings, donde cada posicion guarda un elemento
 			String id = line[0].trim();
 			String codigo = line[1].trim();
 			Boolean refrigerado = Boolean.parseBoolean(line[2].trim());
 			Integer anio = Integer.parseInt(line[3].trim());
-			// Aca instanciar lo que necesiten en base a los datos leidos
-			Procesador procesador = new Procesador(id, codigo, refrigerado, anio);
+			List<Tarea> tareas_asignadas = new ArrayList<>(); 
+			
+			// Aquí puedes agregar lógica para leer y crear instancias de tareas asignadas si es necesario
+			
+			Procesador procesador = new Procesador(id, codigo, refrigerado, anio, tareas_asignadas, 0); // Pasar la lista de tareas asignadas y el tiempo de ejecución
 			procesadores.put(id, procesador);
 		}
 		return procesadores;
