@@ -1,4 +1,5 @@
 package tpe;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Procesador {
@@ -19,10 +20,15 @@ public class Procesador {
         this.tareas_asignadas = tareas_asignadas;
         tiempo_ejecucion = 0;
     }
-    public Procesador(Procesador p) {
-        //TODO Auto-generated constructor stub
+     public Procesador(Procesador p) {
+        this.id_procesador = p.id_procesador;
+        this.codigo_procesador = p.codigo_procesador;
+        this.esta_refrigerado = p.esta_refrigerado;
+        this.año_funcionamiento = p.año_funcionamiento;
+        this.tareas_asignadas = new ArrayList<>(p.tareas_asignadas);
+        this.tiempo_ejecucion = p.tiempo_ejecucion;
+        this.cantCriticas = p.cantCriticas;
     }
-    //getter y setter
     public List<Tarea> getTareas_asignadas() {
         return tareas_asignadas;
     }
@@ -32,28 +38,16 @@ public class Procesador {
     public String getId_procesador() {
         return id_procesador;
     }
-    public String getCodigo_procesador() {
-        return codigo_procesador;
-    }
-    public void setTiempo_ejecucion(int tiempo_ejecucion) {
-        this.tiempo_ejecucion = tiempo_ejecucion;
-    }
     public int getCantCriticas() {
         return cantCriticas;
     }
-    public void setCantCriticas(int cantCriticas) {
-        this.cantCriticas = cantCriticas;
-    }
-    public boolean isEsta_refrigerado() {
+    public boolean Esta_refrigerado() {
         return esta_refrigerado;
-    }
-    public int getAño_funcionamiento() {
-        return año_funcionamiento;
     }
    
 
     public boolean cumpleRestricciones(Tarea tarea, int tiempoX) {
-        if (cantCriticas < 2 && this.isEsta_refrigerado() && this.getTiempo_ejecucion() < tiempoX) {
+        if (cantCriticas < 2 && this.Esta_refrigerado() && this.getTiempo_ejecucion() < tiempoX) {
             return true;
         }
         return false;
@@ -62,14 +56,14 @@ public class Procesador {
     public void asignarTarea(Tarea tarea){
         tareas_asignadas.add(tarea);
         tiempo_ejecucion += tarea.getTiempo_ejecucion();
-        if(tarea.isEs_critica()){
+        if(tarea.Es_critica()){
             cantCriticas++;
         }
     }
     public void removerTarea(Tarea tarea) {
         tareas_asignadas.remove(tarea);
         tiempo_ejecucion -= tarea.getTiempo_ejecucion();
-        if (tarea.isEs_critica()) {
+        if (tarea.Es_critica()) {
             cantCriticas--;        
         }
     }

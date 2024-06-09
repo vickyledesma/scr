@@ -28,7 +28,7 @@ public class Servicios {
         this.procesadores = reader.readProcessors(pathProcesadores);
         this.tareas = reader.readTasks(pathTareas);
         for (Tarea tarea : tareas.values()) {
-            if (tarea.isEs_critica()) {
+            if (tarea.Es_critica()) {
                 tareasCriticas.add(tarea);
             }
 			else{
@@ -69,22 +69,17 @@ public class Servicios {
     }
 
     public void servicioBackTraking(int tiempoX) {
-        AsignadorTareas.asignarTareas(tareas, procesadores, tiempoX);
+        AsignadorBacktracking.asignarTareas(tareas, procesadores, tiempoX);
+    }
+    public void servicioGreedy(int tiempoX) {
+        AsignadorGreedy.asignarTareas(tareas, procesadores, tiempoX);
     }
 
-    public Map<String, Tarea> getTareas() {
+    public HashMap<String, Tarea> getTareas() {
         return tareas;
     }
-
-    public void setTareas(HashMap<String, Tarea> tareas) {
-        this.tareas = tareas;
-    }
-
     public HashMap<String, Procesador> getProcesadores() {
         return procesadores;
     }
-
-    public void setProcesadores(HashMap<String, Procesador> procesadores) {
-        this.procesadores = procesadores;
-    }
+    
 }
