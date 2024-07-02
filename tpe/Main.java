@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String args[]) {
 
 		Servicios servicios = new Servicios("./tpe/datasets/Procesadores.csv", "./tpe/datasets/Tareas.csv");
-		int tiempoX = 150;
+		int tiempoX = 80;
 
 		System.out.println("BACKTRACKING");
 		servicios.servicioBackTraking(tiempoX);

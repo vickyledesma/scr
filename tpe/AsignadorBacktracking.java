@@ -15,21 +15,21 @@ public class AsignadorBacktracking {
      * La mejor solución es la que minimiza el tiempo máximo de ejecución de todos los procesadores.
      * En caso de no haber una solución, se retorna null.
      */
-
+    
     public static void asignarTareas(HashMap<String, Tarea> tareas, HashMap<String, Procesador> procesadores, int tiempoX) {
         List<Procesador> mejorAsignacion = new LinkedList<>();
         List<Tarea> tareasSinAsignar = new LinkedList<>(tareas.values());
         AtomicInteger mejorTiempoFinal = new AtomicInteger(Integer.MAX_VALUE);
         AtomicInteger estados = new AtomicInteger(0);
         asignarTareasRecursivo(estados, tareasSinAsignar, mejorAsignacion, tiempoX, procesadores, tareas, mejorTiempoFinal);
-        imprimirSolucion(mejorAsignacion, mejorTiempoFinal.get(), estados.get());
+        Solucion.imprimirResultadoBacktracking(mejorAsignacion, mejorTiempoFinal.get(), estados.get());
     }
-
+    
     private static void asignarTareasRecursivo(AtomicInteger estados, List<Tarea> tareasSinAsignar, List<Procesador> mejorAsignacion, int tiempoX, HashMap<String, Procesador> procesadores, HashMap<String, Tarea> tareas, AtomicInteger mejorTiempoFinal) {
         estados.incrementAndGet();
         if (tareasSinAsignar.isEmpty()) {
             int tiempoFinal = calcularTiempoFinal(procesadores);
-            if (mejorTiempoFinal.get()>tiempoFinal) {
+            if (mejorTiempoFinal.get() > tiempoFinal) {
                 mejorTiempoFinal.set(tiempoFinal);
                 mejorAsignacion.clear();
                 for (Procesador p : procesadores.values()) {
@@ -48,7 +48,7 @@ public class AsignadorBacktracking {
             tareasSinAsignar.add(0, tarea);
         }
     }
-
+    
     private static int calcularTiempoFinal(HashMap<String, Procesador> procesadores) {
         int tiempoMaximo = 0;
         for (Procesador pro : procesadores.values()) {
@@ -59,19 +59,4 @@ public class AsignadorBacktracking {
         return tiempoMaximo;
     }
 
-    private static void imprimirSolucion(List<Procesador> mejorAsignacion, int mejorTiempoFinal, int estados) {
-        if (mejorAsignacion != null && !mejorAsignacion.isEmpty()) {
-            for (Procesador p : mejorAsignacion) {
-                System.out.println("Procesador " + p.getId_procesador() + ": " + p.getTiempo_ejecucion() + " unidades de tiempo, " + p.getCantCriticas() + " tareas críticas");
-                for (Tarea t : p.getTareas_asignadas()) {
-                    System.out.println("  Tarea " + t.getId_tarea() + ": " + t.getTiempo_ejecucion() + " unidades de tiempo, " + (t.Es_critica() ? "crítica" : "no crítica"));
-                }
-            }
-            System.out.println("Solución obtenida: tiempo máximo de ejecución: " + mejorTiempoFinal);
-            System.out.println("Métrica para analizar el costo de la solución (cantidad de estados generados): " + estados);
-        } else {
-            System.out.println("No se encontró solución");
-        }
-    }
-    
 }

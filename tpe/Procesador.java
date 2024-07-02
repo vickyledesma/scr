@@ -44,27 +44,29 @@ public class Procesador {
     public boolean Esta_refrigerado() {
         return esta_refrigerado;
     }
-   
-
     public boolean cumpleRestricciones(Tarea tarea, int tiempoX) {
-        if (cantCriticas < 2 && this.Esta_refrigerado() && this.getTiempo_ejecucion() < tiempoX) {
-            return true;
+        if (tarea.Es_critica() && cantCriticas >= 2) {
+            return false;
         }
-        return false;
+        if (!Esta_refrigerado() && (this.tiempo_ejecucion + tarea.getTiempo_ejecucion() > tiempoX)) {
+            return false;
+        }
+        return true;
     }
-    
-    public void asignarTarea(Tarea tarea){
+
+    public void asignarTarea(Tarea tarea) {
         tareas_asignadas.add(tarea);
         tiempo_ejecucion += tarea.getTiempo_ejecucion();
-        if(tarea.Es_critica()){
+        if (tarea.Es_critica()) {
             cantCriticas++;
         }
     }
+
     public void removerTarea(Tarea tarea) {
         tareas_asignadas.remove(tarea);
         tiempo_ejecucion -= tarea.getTiempo_ejecucion();
         if (tarea.Es_critica()) {
-            cantCriticas--;        
+            cantCriticas--;
         }
     }
 }
