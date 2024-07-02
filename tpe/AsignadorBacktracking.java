@@ -13,7 +13,7 @@ public class AsignadorBacktracking {
      * Este método, de manera recursiva, genera todas las combinaciones posibles de tareas y procesadores, comparándolas y retornando la mejor solución, si
      * es que existe al menos alguna solución.
      * La mejor solución es la que minimiza el tiempo máximo de ejecución de todos los procesadores.
-     * En caso de no haber una solución, se retorna null.
+     * En caso de no haber una solución, se indica que no se encontró solución.
      */
     
     public static void asignarTareas(HashMap<String, Tarea> tareas, HashMap<String, Procesador> procesadores, int tiempoX) {

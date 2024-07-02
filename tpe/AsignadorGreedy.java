@@ -5,6 +5,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+    /*
+     * Estrategia greedy:
+     * Se crea una lista inicial de tareas sin asignar y se ordena en orden decreciente para asignar primero las que mayor tiempo de ejecucion tengan.
+     * Se invoca un método privado greedy que itera sobre esta lista, asignando cada tarea al procesador más adecuado en cada paso.
+     * Se selecciona siempre el procesador que puede ejecutar la tarea con el menor incremento en el tiempo de ejecución total.
+     * Si se encuentra una asignación factible para todas las tareas, se imprime la solución y las métricas relevantes.
+     * En caso de no poder asignar una tarea a ningún procesador, se indica que no se encontró solución.
+     */
 
 public class AsignadorGreedy {
 
