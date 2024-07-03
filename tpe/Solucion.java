@@ -21,27 +21,22 @@ public class Solucion {
         }
     }
 
-    public static void imprimirResultadoGreedy(HashMap<String, Procesador> procesadores, AtomicInteger candidatosConsiderados, List<Tarea> solucion) {
-        if(solucion!=null){
+    public static void imprimirResultadoGreedy(HashMap<String, Procesador> procesadores, AtomicInteger candidatosConsiderados, List<Tarea> solucion, int tiempoMaximo) {
+        if(solucion != null && !solucion.isEmpty()) {
             for (Procesador p : procesadores.values()) {
                 System.out.println("Procesador " + p.getId_procesador() + ": " + p.getTiempo_ejecucion() + " unidades de tiempo, " + p.getCantCriticas() + " tareas críticas");
                 for (Tarea t : p.getTareas_asignadas()) {
                     System.out.println("  Tarea " + t.getId_tarea() + ": " + t.getTiempo_ejecucion() + " unidades de tiempo, " + (t.Es_critica() ? "crítica" : "no crítica"));
                 }
             }
-            System.out.println("Solucion obtenida : " + Solucion.calcularTiempoMaximo(procesadores));
+            System.out.println("Solución obtenida: " + tiempoMaximo);
             System.out.println("Métrica para analizar el costo de la solución (cantidad de candidatos considerados): " + candidatosConsiderados);
         } else {
-            System.out.println("No hay solucion");
+            System.out.println("No hay solución");
         }
     }
-    private static int calcularTiempoMaximo(HashMap<String, Procesador> procesadores) {
-        int tiempoMaximo = 0;
-        for (Procesador pro : procesadores.values()) {
-            if (pro.getTiempo_ejecucion() > tiempoMaximo) {
-                tiempoMaximo = pro.getTiempo_ejecucion();
-            }
-        }
-        return tiempoMaximo;
+
+    public static void imprimirErrorGreedy(Tarea tarea) {
+        System.out.println("No se encontró una solución");
     }
 }

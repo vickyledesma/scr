@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AsignadorBacktracking {
-
+    /*
      /* 
      * Estrategia backtracking:
      * Se crea un estado inicial con todos los procesadores sin tareas asignadas.
@@ -14,8 +14,8 @@ public class AsignadorBacktracking {
      * es que existe al menos alguna solución.
      * La mejor solución es la que minimiza el tiempo máximo de ejecución de todos los procesadores.
      * En caso de no haber una solución, se indica que no se encontró solución.
-     */
-    
+      */
+
     public static void asignarTareas(HashMap<String, Tarea> tareas, HashMap<String, Procesador> procesadores, int tiempoX) {
         List<Procesador> mejorAsignacion = new LinkedList<>();
         List<Tarea> tareasSinAsignar = new LinkedList<>(tareas.values());
@@ -24,11 +24,11 @@ public class AsignadorBacktracking {
         asignarTareasRecursivo(estados, tareasSinAsignar, mejorAsignacion, tiempoX, procesadores, tareas, mejorTiempoFinal);
         Solucion.imprimirResultadoBacktracking(mejorAsignacion, mejorTiempoFinal.get(), estados.get());
     }
-    
+
     private static void asignarTareasRecursivo(AtomicInteger estados, List<Tarea> tareasSinAsignar, List<Procesador> mejorAsignacion, int tiempoX, HashMap<String, Procesador> procesadores, HashMap<String, Tarea> tareas, AtomicInteger mejorTiempoFinal) {
         estados.incrementAndGet();
         if (tareasSinAsignar.isEmpty()) {
-            int tiempoFinal = calcularTiempoFinal(procesadores);
+            int tiempoFinal = calcularTiempoMaximo(procesadores);
             if (mejorTiempoFinal.get() > tiempoFinal) {
                 mejorTiempoFinal.set(tiempoFinal);
                 mejorAsignacion.clear();
@@ -48,8 +48,8 @@ public class AsignadorBacktracking {
             tareasSinAsignar.add(0, tarea);
         }
     }
-    
-    private static int calcularTiempoFinal(HashMap<String, Procesador> procesadores) {
+
+    private static int calcularTiempoMaximo(HashMap<String, Procesador> procesadores) {
         int tiempoMaximo = 0;
         for (Procesador pro : procesadores.values()) {
             if (pro.getTiempo_ejecucion() > tiempoMaximo) {
@@ -58,5 +58,5 @@ public class AsignadorBacktracking {
         }
         return tiempoMaximo;
     }
-
 }
+
