@@ -23,7 +23,10 @@ public class Servicios {
     /*
      * Expresar la complejidad temporal del constructor.
      * 
-     * O(n) n seria la suma de los procesadores y tareas
+     * Lectura de procesadores: O(n) 
+     * Lectura de tareas: O(n) 
+     * Iteración sobre las tareas: O(n)
+     * O(n)+O(n)+O(n)=O(3n)= O(n)
      */
 
     public Servicios(String pathProcesadores, String pathTareas) {

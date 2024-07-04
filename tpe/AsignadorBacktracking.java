@@ -20,15 +20,16 @@ public class AsignadorBacktracking {
         List<Procesador> mejorAsignacion = new LinkedList<>();
         List<Tarea> tareasSinAsignar = new LinkedList<>(tareas.values());
         AtomicInteger mejorTiempoFinal = new AtomicInteger(Integer.MAX_VALUE);
+        int tiempoFinal = 0;
         AtomicInteger estados = new AtomicInteger(0);
-        asignarTareasRecursivo(estados, tareasSinAsignar, mejorAsignacion, tiempoX, procesadores, tareas, mejorTiempoFinal);
+        asignarTareasRecursivo(tiempoFinal,estados, tareasSinAsignar, mejorAsignacion, tiempoX, procesadores, tareas, mejorTiempoFinal);
         Solucion.imprimirResultadoBacktracking(mejorAsignacion, mejorTiempoFinal.get(), estados.get());
     }
 
-    private static void asignarTareasRecursivo(AtomicInteger estados, List<Tarea> tareasSinAsignar, List<Procesador> mejorAsignacion, int tiempoX, HashMap<String, Procesador> procesadores, HashMap<String, Tarea> tareas, AtomicInteger mejorTiempoFinal) {
+    private static void asignarTareasRecursivo(int tiempoFinal, AtomicInteger estados, List<Tarea> tareasSinAsignar, List<Procesador> mejorAsignacion, int tiempoX, HashMap<String, Procesador> procesadores, HashMap<String, Tarea> tareas, AtomicInteger mejorTiempoFinal) {
         estados.incrementAndGet();
         if (tareasSinAsignar.isEmpty()) {
-            int tiempoFinal = calcularTiempoMaximo(procesadores);
+            tiempoFinal = calcularTiempoMaximo(procesadores);
             if (mejorTiempoFinal.get() > tiempoFinal) {
                 mejorTiempoFinal.set(tiempoFinal);
                 mejorAsignacion.clear();
@@ -41,7 +42,7 @@ public class AsignadorBacktracking {
             for (Procesador procesador : procesadores.values()) {
                 if (procesador.cumpleRestricciones(tarea, tiempoX)) {
                     procesador.asignarTarea(tarea);
-                    asignarTareasRecursivo(estados, tareasSinAsignar, mejorAsignacion, tiempoX, procesadores, tareas, mejorTiempoFinal);
+                    asignarTareasRecursivo(tiempoFinal, estados, tareasSinAsignar, mejorAsignacion, tiempoX, procesadores, tareas, mejorTiempoFinal);
                     procesador.removerTarea(tarea);
                 }
             }
